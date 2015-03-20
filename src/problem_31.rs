@@ -3,32 +3,32 @@ pub fn get_problem() -> String {
 }
 
 pub fn solve_problem() -> String {
-    let coins: Vec<u32> = vec![1, 2, 5, 10, 20, 50, 100, 200];
-    let mut max_coins: Vec<u32> = Vec::new();
-    let target_sum: u32 = 200;
-    let mut total_valid_combinations: u32 = 0;
+    let coins: Vec<i32> = vec![1, 2, 5, 10, 20, 50, 100, 200];
+    let target_sum: i32 = 200;
+    let solution: i32 = total_combinations(&coins, target_sum);
 
-    // Find the maximum number of each coin type.
-    for n in 0..coins.len() {
-        max_coins.push(target_sum/coins[n]);
-    }
-
-    loop {
-        // Use greedy algorithm within the confines of max_coins.
-        
-        break;
-    }
-
-    let solution = format!("{:?}", max_coins);//"solution".to_string();
-    return solution;
+    return format!("{:?}", solution);
 }
 
-fn greedy_sum_possible(coins: Vec<u32>, max_coins: Vec<u32>, target_sum: u32) -> bool {
-    loop {
-        let mut total = 0;
-        let mut current_coin = coins.len() - 1;
-        break;
+fn total_combinations(coins: &[i32], target_sum: i32) -> i32 {
+    if coins.len() == 1 {
+        return 1;
     }
 
-    return false;
+    let mut total = 0;
+    let mut most_significant_count: i32 = target_sum / coins[coins.len() - 1];
+
+    if most_significant_count * coins[coins.len() - 1] == target_sum {
+        total += 1;
+        most_significant_count -= 1;
+    }
+
+    while most_significant_count >= 0 {
+        let remaining_coins = &coins[0..(coins.len() - 1)];
+        let remaining_sum = target_sum - (most_significant_count * coins[coins.len() - 1]);
+        total += total_combinations(remaining_coins, remaining_sum);
+        most_significant_count -= 1;
+    }
+
+    return total;
 }
