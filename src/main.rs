@@ -1,6 +1,6 @@
-mod problem_31;
+mod problem_48;
 
-use problem_31::*;
+use problem_48::*;
 
 fn main() {
     println!("{}", get_problem());
